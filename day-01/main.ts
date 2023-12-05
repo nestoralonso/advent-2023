@@ -106,28 +106,25 @@ function getDigitsPlus(li: string) {
     let firstDigit = NaN;
     let lastDigit = NaN;
 
-    let i = 0;
-    while (!firstDigit || !lastDigit) {
-        if (!firstDigit) {
-            strFirst += li[i];
+    for (let i = 0; i < li.length; i++) {
+        strFirst += li[i];
 
-            const match = strFirst.match(re);
-            if (match) {
-                const digit = match[0] as SpelledDigit;
-                firstDigit = wordToDigit(digit);
-            }
+        const match = strFirst.match(re);
+        if (match) {
+            const digit = match[0] as SpelledDigit;
+            firstDigit = wordToDigit(digit);
+            break;
         }
+    }
 
-        if (!lastDigit) {
-            strLast = li[li.length - i - 1] + strLast;
-            const match = strLast.match(re);
-            if (match) {
-                const digit = match[0] as SpelledDigit;
-                lastDigit = wordToDigit(digit);
-            }
+    for (let i = li.length - 1; i >= 0; i--) {
+        strLast = li[i] + strLast;
+        const match = strLast.match(re);
+        if (match) {
+            const digit = match[0] as SpelledDigit;
+            lastDigit = wordToDigit(digit);
+            break;
         }
-
-        i += 1;
     }
 
 
